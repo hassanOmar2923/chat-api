@@ -9,7 +9,7 @@ const login = async (req, res) => {
     try {
         // validation
         const { error } = loginvalidtion(req.body);
-        if (error) return res.status(400).send({status: false,message:"invalid Credentials"});
+        if (error) return res.status(400).send({status: false,message:error.message});
     
         // find user data
         const usergetdata = await usersModel.findOne({
@@ -40,9 +40,9 @@ const login = async (req, res) => {
     
         res.status(200).header('authorization', ourToken).json({
           status: true,
-          message: `logged As ${usergetdata?.name}`,
-          token: ourToken,
-          Role:usergetdata.role
+          message: `successfuly logged in as [${usergetdata?.name}]`,
+          user:usergetdata
+          // token: ourToken,
         });
       } catch (error) {
         res.status(400).send(error.message);
