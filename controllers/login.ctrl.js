@@ -41,7 +41,11 @@ const login = async (req, res) => {
         res.status(200).header('authorization', ourToken).json({
           status: true,
           message: `successfuly logged in as [${usergetdata?.name}]`,
-          user:usergetdata
+          user:{
+            id: usergetdata._id,
+            name:usergetdata.name,
+            email:usergetdata.email,
+          }
           // token: ourToken,
         });
       } catch (error) {
